@@ -1,7 +1,5 @@
 package com.example.crud.domain;
 
-import com.sun.org.apache.xml.internal.resolver.Catalog;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;

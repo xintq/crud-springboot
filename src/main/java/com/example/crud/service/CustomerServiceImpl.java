@@ -9,10 +9,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.awt.*;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -156,12 +157,12 @@ public class CustomerServiceImpl implements CustomerService{
                 Set<Product> products = new HashSet<>();
                 for (String productName : prodctNames) {
                     Product product = productRepository.findByName(productName);
-                    /*
+                    /**/
                     if (null == product) {
                     		product = productRepository.save(new Product(productName));
                     }
-                    */
-                    products.add(null == product ? new Product(productName) : product);
+
+                    products.add(product);
                 }
                 // 将产品列表绑定到Customer对象上
                 customer.getProducts().addAll(products);

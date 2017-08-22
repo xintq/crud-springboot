@@ -1,6 +1,9 @@
 package com.example.crud.web;
 
-import com.example.crud.domain.*;
+import com.example.crud.domain.Category;
+import com.example.crud.domain.CategoryRepository;
+import com.example.crud.domain.Link;
+import com.example.crud.domain.LinkRepository;
 import com.example.crud.util.ChartsResponse;
 import com.example.crud.util.Dataset;
 import com.example.crud.util.DateFormatter;
@@ -136,9 +139,10 @@ public class LinkController {
                 link.setName(fields[0].trim());
                 link.setUrl(fields[1].trim());
                 String categoryName = fields[2].trim();
-//                Category category = categoryRepository.findByName(categoryName);
                 Category category = categoryRepository.findOne(Example.of(new Category(categoryName)));
-                if (null == category) category = new Category(categoryName);
+                if (null == category){
+                    category = categoryRepository.save(new Category(categoryName));
+                }
                 link.setCategory(category);
                 links.add(link);
             }
