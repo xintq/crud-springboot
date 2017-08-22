@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:include="_layout :: htmlhead" th:with="title='About'"></head>
+</head>
+<body>
+<input th:fragment='view_id' type="hidden" value="about" id="view-id" name="view-id"/>
+<div th:replace="_layout :: navbar">(navbar)</div>
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="_layout :: sidebar">(sidebar)</div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <p>This is a compact CRUD system powered by SpringBoot.</p>
+        </div>
+    </div>
+</div>
+
+<div th:include="_layout :: footer" id="footer">(footer)</div>
+
+</body>
+</html>

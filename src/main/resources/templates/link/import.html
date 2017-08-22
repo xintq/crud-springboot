@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:include="_layout :: htmlhead" th:with="title='CRUD - Import Links'"></head>
+</head>
+<body>
+<div th:replace="link/index :: view_id">(view_id)</div>
+<div th:replace="_layout :: navbar">(navbar)</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="_layout :: sidebar">(sidebar)</div>
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+            <ol class="breadcrumb">
+                <li><a th:href="@{/link}"><span class="glyphicon glyphicon-list" aria-hidden="true" title="List"></span></a></li>
+                <li class="active"><span class="glyphicon glyphicon-import" aria-hidden="true" title="Import"></span></li>
+            </ol>
+
+            <div>
+                <div th:if='${imported != null}'>
+                    <p th:if='${imported} gt 0' th:text="${imported} + ' link(s) imported!'" class="bg-success">2 links imported</p>
+                    <p th:if='${imported} lt 0' class="bg-warning">Bad format. No link imported!</p>
+                </div>
+                <form th:action="@{/link/imp}" th:method="post">
+                    <div class="form-group">
+                        <label class="control-label">格式（以TAB分割，多个PRODUCTS以"/"分割）：<br/>NAME	URL	CATEGORY</label>
+                        <textarea name="content" rows="10" class="form-control"
+                                  placeholder="Home	http://localhost:8080/crud	Internal Link"
+                                  th:text="${content}"></textarea>
+                    </div>
+                    <div class="form-group" role="group" aria-label="...">
+                        <button type="submit" class="btn btn-primary">Import</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:include="_layout :: footer" id="footer">(footer)</div>
+
+</body>
+</html>

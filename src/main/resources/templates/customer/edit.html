@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:include="_layout :: htmlhead" th:with="title='CRUD - Edit Customer'"></head>
+</head>
+<body>
+<div th:replace="customer/index :: view_id">(view_id)</div>
+<div th:replace="_layout :: navbar">(navbar)</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="_layout :: sidebar">(sidebar)</div>
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+            <ol class="breadcrumb">
+                <li><a th:href="@{/customer}"><span class="glyphicon glyphicon-list" aria-hidden="true" title="List"></span></a></li>
+                <li class="active"><span class="glyphicon glyphicon-pencil" aria-hidden="true" title="Edit"></span></li>
+            </ol>
+
+            <div>
+                <form th:action="@{/customer/update}" th:object="${customer}" th:method="post" class="form-horizontal">
+                    <div th:include="customer/add :: form">(Form)</div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:include="_layout :: footer" id="footer">(footer)</div>
+<script>
+    $(function(){
+        // 工具提示和弹出框的 data 编程接口（data api）是必须要手动初始化的
+	    $('[data-toggle="popover"]').popover({
+	        html: true,
+	        content: '<div class="list-group"> <a th:each="p:${allProducts}" th:text="${p.name}" class="product_list list-group-item" href="#">Name</a></div>'
+	    });
+
+	    $('[data-toggle="popover"]').on('shown.bs.popover', function () {
+          var _this = $(this);
+          $(".product_list").click(function(){
+            _this.val($(this).html());
+            $('[data-toggle="popover"]').popover('hide');
+	      });
+        });
+    });
+</script>
+</body>
+</html>

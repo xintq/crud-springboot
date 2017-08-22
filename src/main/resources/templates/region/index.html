@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:include="_layout :: htmlhead" th:with="title='CRUD - Regions'"></head>
+</head>
+<body>
+<input th:fragment='view_id' type="hidden" value="region" id="view-id" name="view-id"/>
+<div th:replace="_layout :: navbar">(navbar)</div>
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="_layout :: sidebar">(sidebar)</div>
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <ol class="breadcrumb">
+                <li><span class="glyphicon glyphicon-list" aria-hidden="true" title="List"></span></li>
+                <li><a th:href="@{/region/toAdd}"><span class="glyphicon glyphicon-plus" aria-hidden="true" title="New"></span></a></li>
+                <li><a th:href="@{/region/toImport}"><span class="glyphicon glyphicon-import" aria-hidden="true" title="Import"></span></a></li>
+                <li><a th:href="@{'/region/exp?q='+${q}}" href="#"><span class="glyphicon glyphicon-export" aria-hidden="true" title="Export"></span></a></li>
+            </ol>
+            <div class="table-responsive">
+                <form id="g-search-form" method="post" th:action="@{/region}">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="g-search-form-q" name="q" th:value="${q}"/>
+                        <span class="input-group-btn"><button class="btn btn-default" type="submit">Go!</button></span>
+                    </div>
+                </form>
+                <div th:if="${errors != null}" th:text="${errors}" class="bg-danger text-danger"></div>
+                <div th:if="${msg != null}" th:text="${msg}" class="bg-info text-info"></div>
+                <table class="table table-striped table-hover table-condensed">
+                    <thead>
+                    <th>ID.</th>
+                    <th>NAME</th>
+                    <th>LOCAL NAME</th>
+                    <th>CODE</th>
+                    <th>TEL CODE</th>
+                    <th>TIME ZONE</th>
+                    <th>OPERATION</th>
+                    </thead>
+                    <tbody>
+                    <tr th:each="row: ${page.content}">
+                        <td th:text="${row.id}">1</td>
+                        <td th:text="${row.name}">name</td>
+                        <td th:text="${row.localName}">localName</td>
+                        <td th:text="${row.code}">code</td>
+                        <td th:text="${row.telCode}">telCode</td>
+                        <td th:text="${row.timeZone}">timeZone</td>
+                        <td class="action-col">
+                            <a th:if="${#lists.isEmpty(row.customers)}" href="#" th:href="@{'/region/delete/' + ${row.id}}"><span class="glyphicon glyphicon-trash" aria-hidden="true" title="Delete"></span></a>                            &nbsp;&nbsp;
+                            <a href="#" th:href="@{'/region/edit/' + ${row.id}}"><span class="glyphicon glyphicon-pencil" aria-hidden="true" title="Edit"></span></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div th:replace="_layout :: paginationbar">(paginationbar)</div>
+
+        </div>
+    </div>
+</div>
+
+<div th:include="_layout :: footer" id="footer">(footer)</div>
+
+</body>
+</html>

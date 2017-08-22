@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:include="_layout :: htmlhead" th:with="title='CRUD - Customers'"></head>
+</head>
+<body>
+<input th:fragment='view_id' type="hidden" value="customer" id="view-id" name="view-id"/>
+<div th:replace="_layout :: navbar">(navbar)</div>
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="_layout :: sidebar">(sidebar)</div>
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <ol class="breadcrumb">
+                <li><span class="glyphicon glyphicon-list" aria-hidden="true" title="List"></span></li>
+                <li><a th:href="@{/customer/toAdd}"><span class="glyphicon glyphicon-plus" aria-hidden="true" title="New"></span></a></li>
+                <li><a th:href="@{/customer/toImport}"><span class="glyphicon glyphicon-import" aria-hidden="true" title="Import"></span></a></li>
+                <li><a th:href="@{'/customer/exp?q='+${q}}" href="#"><span class="glyphicon glyphicon-export" aria-hidden="true" title="Export"></span></a></li>
+                <li><a th:href="@{/customer/toProduct}" href="#"><span class="glyphicon glyphicon-gift" aria-hidden="true" title="Edit Products"></span></a></li>
+            </ol>
+            <div class="table-responsive">
+                <form id="g-search-form" method="post" th:action="@{/customer}">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="g-search-form-q" name="q" th:value="${q}"/>
+                        <span class="input-group-btn"><button class="btn btn-default" type="submit">Go!</button></span>
+                    </div>
+
+                </form>
+                <table class="table table-striped table-hover table-condensed">
+                    <thead>
+                    <th>ID.</th>
+                    <th>NAME</th>
+                    <th>ALIAS</th>
+                    <th>INDUSTRY</th>
+                    <th>PRODUCTS</th>
+                    <th>REGION</th>
+                    <th>OPERATION</th>
+                    </thead>
+                    <tbody>
+                    <tr th:each="row: ${page.content}">
+                        <td th:text="${row.id}">1</td>
+                        <td th:text="${row.name}">name</td>
+                        <td th:text="${row.alias}">alias</td>
+                        <td th:text="${row.industry}">industry</td>
+                        <td>
+                            <div th:each="p,iterStat: ${row.products}" th:remove="tag">
+                                <span th:if="${iterStat.count lt 5}" th:text="${p.name}" class="label label-default">Product</span>
+                                <span th:if="${iterStat.count eq 5}" class="label label-default" th:text="${iterStat.size - iterStat.index} + ' more...'"></span>
+                            </div>
+                        </td>
+                        <td th:text="${row.region.code}">region</td>
+                        <td class="action-col">
+                            <a href="#" th:href="@{'/customer/delete/' + ${row.id}}"><span class="glyphicon glyphicon-trash" aria-hidden="true" title="Delete"></span></a>                            &nbsp;&nbsp;
+                            <a href="#" th:href="@{'/customer/edit/' + ${row.id}}"><span class="glyphicon glyphicon-pencil" aria-hidden="true" title="Edit"></span></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div th:replace="_layout :: paginationbar">(paginationbar)</div>
+
+        </div>
+    </div>
+</div>
+
+<div th:include="_layout :: footer" id="footer">(footer)</div>
+
+</body>
+</html>

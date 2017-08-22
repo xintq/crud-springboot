@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:include="_layout :: htmlhead" th:with="title='CRUD - Add New Link'"></head>
+</head>
+<body>
+<div th:replace="link/index :: view_id">(view_id)</div>
+<div th:replace="_layout :: navbar">(navbar)</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="_layout :: sidebar">(sidebar)</div>
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <ol class="breadcrumb">
+                <li><a th:href="@{/link}"><span class="glyphicon glyphicon-list" aria-hidden="true" title="List"></span></a></li>
+                <li class="active"><span class="glyphicon glyphicon-plus" aria-hidden="true" title="New"></span></li>
+            </ol>
+
+            <div th:fragment='add_form'>
+                <form th:action="@{/link/add}" th:object="${link}" th:method="post" action="#" class="form-horizontal">
+                   <fieldset>
+                    <div th:fragment='form'>
+                        <input type="hidden" th:field="*{id}" />
+                        <div class="form-group" th:class="${#fields.hasErrors('name')} ? 'has-error form-group': 'form-group'">
+                            <label class="col-sm-2 control-label">NAME</label>
+                            <div class="col-sm-10">
+                                <input type="text" th:field="*{name}" class="form-control" placeholder="NAME"/>
+                                <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="bg-danger">Name Error</label>
+                            </div>
+                        </div>
+                        <div class="form-group" th:class="${#fields.hasErrors('url')} ? 'has-error form-group': 'form-group'">
+                            <label class="col-sm-2 control-label">URL</label>
+                            <div class="col-sm-10">
+                                <input type="text" th:field="*{url}" class="form-control required" placeholder="URL"/>
+                                <label th:if="${#fields.hasErrors('url')}" th:errors="*{url}" class="bg-danger">URL Error</label>
+                            </div>
+                        </div>
+                        <div class="form-group" th:class="${#fields.hasErrors('category')} ? 'has-error form-group': 'form-group'">
+                            <label class="col-sm-2 control-label">CATEGORY</label>
+                            <div class="col-sm-10">
+                                <div class="input-group">
+                                    <select th:field="*{category}" class="form-control selectpicker show-menu-arrow" data-live-search="true">
+                                        <option value=""> -- </option>
+                                        <option th:each="c : ${allCategories}" th:value="${c.id}" th:text="${c.value}">Internal</option>
+                                    </select>
+                                    <span class=""><a th:href="@{/link/toCategory}">Edit Category</a></span>
+                                </div>
+                                <label th:if="${#fields.hasErrors('category')}" th:errors="*{category}" class="bg-danger">Category Error</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary" name="save">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                   </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:include="_layout :: footer" id="footer">(footer)</div>
+</body>
+</html>

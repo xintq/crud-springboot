@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:include="_layout :: htmlhead" th:with="title='CRUD-Home'"></head>
+</head>
+<body>
+<input th:fragment='view_id' type="hidden" value="home" id="view-id" name="view-id"/>
+<div th:replace="_layout :: navbar">(navbar)</div>
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="_layout :: sidebar">(sidebar)</div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h2 class="page-header">Dashboard</h2>
+            <div class="row placeholders">
+                <div class="col-xs-9 col-sm-6 placeholder">
+                    <h3><a href="#" th:href="@{/customer}"><span class="label label-success">Customers</span><span class="badge" th:text="${customersCount}">100</span></a></h3>
+                    <canvas id="customerChart"></canvas>
+                </div>
+                <div class="col-xs-9 col-sm-6 placeholder">
+                    <h3><a href="#" th:href="@{/link}"><span class="label label-info">Links</span><span class="badge" th:text="${linksCount}">${links?size!}</span></a></h3>
+                    <canvas id="linkChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:include="_layout :: footer" id="footer">(footer)</div>
+<script th:src="@{/webjars/chartjs/2.6.0/dist/Chart.min.js}"></script>
+<script th:src="@{/js/getChartData.js}"></script>
+<script type="text/javascript">
+    $(function(){
+        var ctx = $("#customerChart").get(0).getContext("2d");
+        $.getJSON("customer/chart").done(function(data){
+            if(data.length > 0) {
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: data[0],
+                    options: {}
+                   }
+                );
+            }
+        });
+
+        var ctx2 = $("#linkChart").get(0).getContext("2d");
+        $.getJSON("link/chart").done(function(data){
+            if(data.length > 0) {
+                var myChart = new Chart(ctx2, {
+                    type: 'bar',
+                    data: data[0],
+                    options: {}
+                   }
+                );
+            }
+        });
+    });
+</script>
+</body>
+</html>
