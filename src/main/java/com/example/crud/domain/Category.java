@@ -1,6 +1,13 @@
+/*
+ * Copyright (c) K.X(Kevin Xin) 2017.
+ * Find more details in http://xintq.net
+ *
+ */
+
 package com.example.crud.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -38,6 +45,7 @@ public class Category implements Serializable {
         this.id = id;
     }
 
+    @NotNull(message = "类别名称不能为空")
     public String getValue() {
         return value;
     }

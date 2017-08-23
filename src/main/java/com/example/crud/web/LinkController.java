@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) K.X(Kevin Xin) 2017.
+ * Find more details in http://xintq.net
+ *
+ */
+
 package com.example.crud.web;
 
 import com.example.crud.domain.Category;
@@ -45,9 +51,9 @@ public class LinkController {
      */
     @RequestMapping("/link")
     public String index(ModelMap model,
-                      @RequestParam(value = "page", defaultValue = "0") int page,
-                      @RequestParam(value = "size", defaultValue = "10") int size,
-                      @RequestParam(value = "q", defaultValue = "") String q) {
+                        @RequestParam(value = "page", defaultValue = "0") int page,
+                        @RequestParam(value = "size", defaultValue = "10") int size,
+                        @RequestParam(value = "q", defaultValue = "") String q) {
         PageWrapper<Link> pageWrapper = new PageWrapper<>(
                 linkRepository.findByNameContainingOrUrlContainingAllIgnoringCase(
                         q,
@@ -108,8 +114,8 @@ public class LinkController {
 
     @PostMapping(value = "/link/add", params = {"save"})
     public String save(final ModelMap model,
-                              @Valid final Link link,
-                              final BindingResult bindingResult) throws Exception{
+                       @Valid final Link link,
+                       final BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {
             return "/link/add";
         } else {

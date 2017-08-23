@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) K.X(Kevin Xin) 2017.
+ * Find more details in http://xintq.net
+ *
+ */
+
 package com.example.crud.domain;
 
 import org.junit.After;
@@ -135,13 +141,22 @@ public class CustomerRepositoryTests {
         assertThat(page.getTotalPages()).isEqualTo(1);
 
         page = customerRepository.findAny(
-           "wei",
-           "wei",
-           "wei",
-           "wei",
+                "wei",
+                "wei",
+                "wei",
+                "wei",
                 new PageRequest(0, 10)
         );
         assertThat(page.getTotalPages()).isEqualTo(1);
     }
 
+    @Test
+    public void findAny() throws Exception {
+        String q = "Oracle";
+        Page<Customer> page = customerRepository.findAny(q, q, q, q, new PageRequest(0, 10));
+        assertThat(page.getContent()).hasSize(1);
+
+        List<Customer> customers = customerRepository.findAny(q, q, q, q);
+        assertThat(customers).hasSize(1);
+    }
 }

@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) K.X(Kevin Xin) 2017.
+ * Find more details in http://xintq.net
+ *
+ */
+
 package com.example.crud.service;
 
 import com.example.crud.domain.*;
@@ -159,7 +165,7 @@ public class CustomerServiceImpl implements CustomerService{
                     Product product = productRepository.findByName(productName);
                     /**/
                     if (null == product) {
-                    		product = productRepository.save(new Product(productName));
+                        product = productRepository.save(new Product(productName));
                     }
 
                     products.add(product);

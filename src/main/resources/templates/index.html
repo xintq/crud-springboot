@@ -1,15 +1,15 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <head th:include="_layout :: htmlhead" th:with="title='CRUD-Home'"></head>
+    <head th:include="_layout :: htmlhead" th:with="title='CRUD-Home'"></head><!--/* 引入_layout中定义的htmlhead组件 */-->
 </head>
 <body>
-<input th:fragment='view_id' type="hidden" value="home" id="view-id" name="view-id"/>
-<div th:replace="_layout :: navbar">(navbar)</div>
+<input th:fragment='view_id' type="hidden" value="home" id="view-id" name="view-id"/> <!--/* 埋一个页面ID，用以区别不同的页面 */-->
+<div th:replace="_layout :: navbar">(navbar)</div> <!--/* 引入_layout中定义的navbar组件，作为顶端导航栏 */-->
 <div class="container-fluid">
     <div class="row">
-        <div th:replace="_layout :: sidebar">(sidebar)</div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div th:replace="_layout :: sidebar">(sidebar)</div> <!--/* 引入_layout中定义的sidebar组件，作为侧边导航栏 */-->
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"> <!--/* 这里开始页面的主要内容 */-->
             <h2 class="page-header">Dashboard</h2>
             <div class="row placeholders">
                 <div class="col-xs-9 col-sm-6 placeholder">
@@ -25,9 +25,8 @@
     </div>
 </div>
 
-<div th:include="_layout :: footer" id="footer">(footer)</div>
-<script th:src="@{/webjars/chartjs/2.6.0/dist/Chart.min.js}"></script>
-<script th:src="@{/js/getChartData.js}"></script>
+<div th:include="_layout :: footer" id="footer">(footer)</div> <!--/* 引入_layout中定义的footer组件，作为页脚 */-->
+<script th:src="@{/webjars/chartjs/2.6.0/dist/Chart.min.js}"></script> <!--/* 通过webjar引入Chart.js，实现动态统计图 */-->
 <script type="text/javascript">
     $(function(){
         var ctx = $("#customerChart").get(0).getContext("2d");

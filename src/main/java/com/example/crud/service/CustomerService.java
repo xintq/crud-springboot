@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) K.X(Kevin Xin) 2017.
+ * Find more details in http://xintq.net
+ *
+ */
+
 package com.example.crud.service;
 
 import com.example.crud.domain.Customer;
@@ -14,7 +20,7 @@ public interface CustomerService {
 
     Customer findCustomer(Long id);
 
-    Customer  saveCustomer(Customer customer);
+    Customer saveCustomer(Customer customer);
 
     void deleteCustomer(Long id);
 

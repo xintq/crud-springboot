@@ -1,6 +1,13 @@
+/*
+ * Copyright (c) K.X(Kevin Xin) 2017.
+ * Find more details in http://xintq.net
+ *
+ */
+
 package com.example.crud.service;
 
 import com.example.crud.domain.*;
+import com.example.crud.util.ChartsResponse;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,8 +30,11 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Service测试类
+ */
 @RunWith(SpringRunner.class)
-@SpringBootTest // 用来替代 @ContextConfiguration
+@SpringBootTest // 用来替代 @ContextConfiguration，这个必须加上，否则使用mvn test时会报错
 @DataJpaTest
 @ComponentScan(basePackages = {"com.example.crud"})
 public class CustomerServiceTests {
@@ -45,6 +55,11 @@ public class CustomerServiceTests {
         registerRegions();
     }
 
+    /**
+     * 从CSV文件导入region数据
+     *
+     * @throws IOException
+     */
     private void registerRegions() throws IOException {
         Resource resource = new ClassPathResource("/regions.csv");
         BufferedReader br = new BufferedReader(new InputStreamReader(resource.getInputStream()));
@@ -74,7 +89,7 @@ public class CustomerServiceTests {
     }
 
     @Test
-    public void saveAndDeleteCustomer() {
+    public void crudCustomer() {
         Product p1 = new Product("SGD");
         Product p2 = new Product("VDI");
         Product p3 = new Product("SunRay");
@@ -108,6 +123,15 @@ public class CustomerServiceTests {
         assertThat(customerService.findAll(new PageRequest(0, 10))).hasSize(2);
 
         assertThat(customerService.totalCount()).isEqualTo(2L);
+
+        assertThat(customerService.findAll("Oracle", new PageRequest(0, 10)).getContent()).hasSize(1);
+
+        ChartsResponse chartsResponse = customerService.getChartData();
+        assertThat(chartsResponse.getDatasets()).hasSize(1);
+        assertThat(chartsResponse.getLabels()).hasSize(3);
+
+        byte[] content = customerService.findAllAsByteArray("Oracle");
+        assertThat(new String(content)).isEqualTo("ORCL\tOracle Systems\tIT\tVDI/SunRay\tUS\n");
     }
 
     @Test

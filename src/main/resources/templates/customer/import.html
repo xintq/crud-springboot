@@ -19,7 +19,7 @@
             </ol>
 
             <div>
-                <div th:if='${importedCustomers != null}'>
+                <div th:if='${importedCustomers != null}'> <!--/* 如果执行了导入操作，根据导入结果显示信息：导入结果大于0则导入成功，小于0则导入失败 */-->
                     <p th:if='${importedCustomers} gt 0' th:text="${importedCustomers} + ' customer(s) imported!'" class="bg-success">2 customers imported</p>
                     <p th:if='${importedCustomers} lt 0' class="bg-warning">Bad format. No customer imported!</p>
                 </div>

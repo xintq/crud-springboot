@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) K.X(Kevin Xin) 2017.
+ * Find more details in http://xintq.net
+ *
+ */
+
 package com.example.crud.web;
 
 import com.example.crud.domain.*;
@@ -21,7 +27,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -47,9 +52,9 @@ public class CustomerController {
      */
     @RequestMapping("/customer")
     public String index(ModelMap model,
-                      @RequestParam(value = "page", defaultValue = "0") int page,
-                      @RequestParam(value = "size", defaultValue = "10") int size,
-                      @RequestParam(value = "q", defaultValue = "") String q) {
+                        @RequestParam(value = "page", defaultValue = "0") int page,
+                        @RequestParam(value = "size", defaultValue = "10") int size,
+                        @RequestParam(value = "q", defaultValue = "") String q) {
         PageWrapper<Customer> pageWrapper = new PageWrapper<>(
                 customerService.findAll(q, new PageRequest(page, size)),
                 "/customer?q=" + q
@@ -127,8 +132,8 @@ public class CustomerController {
 
     @PostMapping(value = "/customer/add", params = {"save"})
     public String save(final ModelMap model,
-                              @Valid final Customer customer,
-                              final BindingResult bindingResult) throws Exception{
+                       @Valid final Customer customer,
+                       final BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {
             return "/customer/add";
         } else {

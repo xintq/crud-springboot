@@ -20,7 +20,7 @@
 
             <div>
                 <form th:action="@{/customer/update}" th:object="${customer}" th:method="post" class="form-horizontal">
-                    <div th:include="customer/add :: form">(Form)</div>
+                    <div th:include="customer/add :: form">(Form)</div> <!--/* 重复使用customer/add定义的form组件 */-->
                 </form>
             </div>
         </div>
@@ -28,22 +28,5 @@
 </div>
 
 <div th:include="_layout :: footer" id="footer">(footer)</div>
-<script>
-    $(function(){
-        // 工具提示和弹出框的 data 编程接口（data api）是必须要手动初始化的
-	    $('[data-toggle="popover"]').popover({
-	        html: true,
-	        content: '<div class="list-group"> <a th:each="p:${allProducts}" th:text="${p.name}" class="product_list list-group-item" href="#">Name</a></div>'
-	    });
-
-	    $('[data-toggle="popover"]').on('shown.bs.popover', function () {
-          var _this = $(this);
-          $(".product_list").click(function(){
-            _this.val($(this).html());
-            $('[data-toggle="popover"]').popover('hide');
-	      });
-        });
-    });
-</script>
 </body>
 </html>

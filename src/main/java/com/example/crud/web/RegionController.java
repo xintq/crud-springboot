@@ -1,7 +1,11 @@
+/*
+ * Copyright (c) K.X(Kevin Xin) 2017.
+ * Find more details in http://xintq.net
+ *
+ */
+
 package com.example.crud.web;
 
-import com.example.crud.domain.Customer;
-import com.example.crud.domain.Product;
 import com.example.crud.domain.Region;
 import com.example.crud.domain.RegionRepository;
 import com.example.crud.util.DateFormatter;
@@ -15,7 +19,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -42,9 +45,9 @@ public class RegionController {
      */
     @RequestMapping("/region")
     public String index(ModelMap model,
-                      @RequestParam(value = "page", defaultValue = "0") int page,
-                      @RequestParam(value = "size", defaultValue = "10") int size,
-                      @RequestParam(value = "q", defaultValue = "") String q) {
+                        @RequestParam(value = "page", defaultValue = "0") int page,
+                        @RequestParam(value = "size", defaultValue = "10") int size,
+                        @RequestParam(value = "q", defaultValue = "") String q) {
         PageWrapper<Region> pageWrapper = new PageWrapper<>(
                 regionRepository.findByNameContainingOrLocalNameContainingOrCodeContainingOrTelCodeContainingAllIgnoringCase(
                         q,
@@ -108,8 +111,8 @@ public class RegionController {
 
     @PostMapping(value = "/region/add", params = {"save"})
     public String save(final ModelMap model,
-                              @Valid final Region region,
-                              final BindingResult bindingResult) throws Exception{
+                       @Valid final Region region,
+                       final BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {
             return "/region/add";
         } else {

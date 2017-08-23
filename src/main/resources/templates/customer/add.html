@@ -4,7 +4,7 @@
     <head th:include="_layout :: htmlhead" th:with="title='CRUD - Add New Customer'"></head>
 </head>
 <body>
-<div th:replace="customer/index :: view_id">(view_id)</div>
+<div th:replace="customer/index :: view_id">(view_id)</div> <!--/* 引入customer/index中定义的view_id */-->
 <div th:replace="_layout :: navbar">(navbar)</div>
 
 <div class="container-fluid">
@@ -20,13 +20,16 @@
             <div th:fragment='add_form'>
                 <form th:action="@{/customer/add}" th:object="${customer}" th:method="post" action="#" class="form-horizontal">
                    <fieldset>
-                    <div th:fragment='form'>
+                       <div th:fragment='form'> <!--/* 将Form的内容定义为form组件，其他页面可以引入 */-->
                         <input type="hidden" th:field="*{id}" />
-                        <div class="form-group" th:class="${#fields.hasErrors('name')} ? 'has-error form-group': 'form-group'">
+                           <div class="form-group"
+                                th:class="${#fields.hasErrors('name')} ? 'has-error form-group': 'form-group'">
+                               <!--/* 将如果有错误信息，则改变当前输入框的样式 */-->
                             <label class="col-sm-2 control-label">NAME</label>
                             <div class="col-sm-10">
                                 <input type="text" th:field="*{name}" class="form-control" placeholder="NAME"/>
-                                <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="bg-danger">Name Error</label>
+                                <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="bg-danger">Name
+                                    Error</label><!--/* 将如果有错误信息，则显示错误信息*/-->
                             </div>
                         </div>
                         <div class="form-group" th:class="${#fields.hasErrors('alias')} ? 'has-error form-group': 'form-group'">
@@ -46,7 +49,8 @@
                         <div class="form-group" th:class="${#fields.hasErrors('region')} ? 'has-error form-group': 'form-group'">
                             <label class="col-sm-2 control-label">REGION</label>
                             <div class="col-sm-10">
-                                <select th:field="*{region}" class="form-control selectpicker show-menu-arrow" data-live-search="true">
+                                <select th:field="*{region}" class="form-control selectpicker show-menu-arrow"
+                                        data-live-search="true"><!--/* 以下拉框实现多对一（ManyToOne）映射 */-->
                                     <option value=""> -- </option>
                                     <option th:each="r : ${allRegions}" th:value="${r.id}" th:text="${r.code} + ' - ' + ${r.name} + ' - ' + ${r.localName}">CN</option>
                                 </select>
@@ -57,35 +61,47 @@
                             <label class="col-sm-2 control-label">PRODUCTS</label>
                             <div class="col-sm-10">
                                 <table class="table table-striped table-hover table-condensed">
+                                    <!--/* 以表格实现多对多（ManyToMany）映射 */-->
                                     <thead>
                                         <tr>
                                             <th>No.</th>
                                             <th>Product Name</th>
                                             <th>
-                                                <button type="submit" name="addProduct" class="btn" title="Add Products">
+                                                <button type="submit" name="addProduct" class="btn"
+                                                        title="Add Products"> <!--/* 添加多个Product */-->
                                                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                                 </button>
-                                                <button type="button" class="btn">
-                                                    <a th:href="@{/customer/toProduct}">
-                                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true" title="Edit Products"></span></a>
+                                                <button type="button" class="btn"> <!--/* 编辑所有Product信息 */-->
+                                                    <a th:href="@{/customer/toProduct}"><span
+                                                            class="glyphicon glyphicon-pencil" aria-hidden="true"
+                                                            title="Edit Products"></span></a>
                                                 </button>
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="row,rowStat: *{products}">
-                                            <td><span class="badge" th:text="${rowStat.count}"></span></td>
+                                    <tr th:each="row,rowStat: *{products}">
+                                        <!--/* 遍历当前已绑定的所有Product信息，同时用rowStat记录当前遍历的状态 */-->
+                                        <td><span class="badge" th:text="${rowStat.count}"></span></td>
+                                        <!--/* 第一列打印当前行数 */-->
                                             <td colspan="2">
                                                 <div class="input-group">
-                                                    <input type="hidden" th:field="*{products[__${rowStat.index}__].id}"/>
+                                                    <input type="hidden"
+                                                           th:field="*{products[__${rowStat.index}__].id}"/>
+                                                    <!--/* 埋入当前已绑定的Product列表中第N个元素的ID，注意：这里的products必须为List类型， */-->
                                                     <select th:field="*{products[__${rowStat.index}__].name}"
-                                                            class="form-control selectpicker show-menu-arrow" data-live-search="true">
+                                                            class="form-control selectpicker show-menu-arrow"
+                                                            data-live-search="true">
+                                                        <!--/* 也就是说必须支持products[n]的形式获取每个元素，如果使用了Set或者HashSet就会报错 */-->
                                                         <option value=""> -- </option>
-                                                        <option th:each="p:${allProducts}" th:value="${p.name}" th:text="${p.name}">P1</option>
+                                                        <option th:each="p:${allProducts}" th:value="${p.name}"
+                                                                th:text="${p.name}">P1
+                                                        </option> <!--/* 列出所有的Product对象作为下拉框选项 */-->
                                                     </select>
                                                     <span class="input-group-btn">
                                                         <button type="submit" name="removeProduct"
-                                                                th:value="${rowStat.index}" class="btn btn-default" title="Delete">
+                                                                th:value="${rowStat.index}" class="btn btn-default"
+                                                                title="Delete"> <!--/* 去除当前已绑定的Product列表中的products[index] */-->
                                                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                                         </button>
                                                     </span>
@@ -112,22 +128,5 @@
 </div>
 
 <div th:include="_layout :: footer" id="footer">(footer)</div>
-<script>
-    $(function(){
-        // 工具提示和弹出框的 data 编程接口（data api）是必须要手动初始化的
-	    $('[data-toggle="popover"]').popover({
-	        html: true,
-	        content: '<div class="list-group"> <a th:each="p:${allProducts}" th:text="${p.name}" class="product_list list-group-item" href="#">Name</a></div>'
-	    });
-
-	    $('[data-toggle="popover"]').on('shown.bs.popover', function () {
-          var _this = $(this);
-          $(".product_list").click(function(){
-            _this.val($(this).html());
-            $('[data-toggle="popover"]').popover('hide');
-	      });
-        });
-    });
-</script>
 </body>
 </html>

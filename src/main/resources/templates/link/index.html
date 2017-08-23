@@ -15,7 +15,9 @@
                 <li><span class="glyphicon glyphicon-list" aria-hidden="true" title="List"></span></li>
                 <li><a th:href="@{/link/toAdd}"><span class="glyphicon glyphicon-plus" aria-hidden="true" title="New"></span></a></li>
                 <li><a th:href="@{/link/toImport}"><span class="glyphicon glyphicon-import" aria-hidden="true" title="Import"></span></a></li>
-                <li><a th:href="@{'/link/exp?q='+${q}}" href="#"><span class="glyphicon glyphicon-export" aria-hidden="true" title="Export"></span></a></li>
+                <li><a th:href="@{'/link/exp?q='+${q}}" href="#"><span class="glyphicon glyphicon-export"
+                                                                       aria-hidden="true" title="Export"></span></a>
+                </li><!--/* 按照当前的搜索结果导出数据 */-->
                 <li><a th:href="@{/link/toCategory}" href="#"><span class="glyphicon glyphicon-gift" aria-hidden="true" title="Edit Categories"></span></a></li>
             </ol>
             <div class="table-responsive">
@@ -29,15 +31,15 @@
                 <div th:if="${msg != null}" th:text="${msg}" class="bg-info text-info"></div>
                 <table class="table table-striped table-hover table-condensed">
                     <thead>
-                    <th>ID.</th>
+                    <th>NO.</th>
                     <th>NAME</th>
                     <th>URL</th>
                     <th>CATEGORY</th>
                     <th>OPERATION</th>
                     </thead>
                     <tbody>
-                    <tr th:each="row: ${page.content}">
-                        <td th:text="${row.id}">1</td>
+                    <tr th:each="row,rowStat: ${page.content}">
+                        <td th:text="${rowStat.count + page.size*(page.number-1)}">1</td>
                         <td th:text="${row.name}">name</td>
                         <td th:text="${row.url}"></td>
                         <td th:text="${row.category.value}">code</td>

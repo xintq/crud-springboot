@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) K.X(Kevin Xin) 2017.
+ * Find more details in http://xintq.net
+ *
+ */
+
 package com.example.crud.domain;
 
 import org.junit.After;
@@ -8,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.BufferedReader;
@@ -71,5 +79,20 @@ public class RegionRepositoryTests {
     public void findRegionByNameAndCodingContaining(){
         assertThat(regionRepository.findByCodeContaining("C")).hasSize(20);
         assertThat(regionRepository.findByNameContaining("China")).hasSize(1);
+    }
+
+    @Test
+    public void findAny() throws Exception {
+        String q = "CN";
+        Page page = regionRepository.findByNameContainingOrLocalNameContainingOrCodeContainingOrTelCodeContainingAllIgnoringCase(
+                q, q, q, q,
+                new PageRequest(0, 10)
+        );
+
+        assertThat(page.getContent()).hasSize(1);
+        List regions = regionRepository.findByNameContainingOrLocalNameContainingOrCodeContainingOrTelCodeContainingAllIgnoringCase(
+                q, q, q, q
+        );
+        assertThat(regions).hasSize(1);
     }
 }

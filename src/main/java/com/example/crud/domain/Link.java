@@ -1,6 +1,13 @@
+/*
+ * Copyright (c) K.X(Kevin Xin) 2017.
+ * Find more details in http://xintq.net
+ *
+ */
+
 package com.example.crud.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
@@ -35,6 +42,7 @@ public class Link implements Serializable{
         this.id = id;
     }
 
+    @NotNull(message = "名称不能为空")
     public String getName() {
         return name;
     }
@@ -43,6 +51,7 @@ public class Link implements Serializable{
         this.name = name;
     }
 
+    @NotNull(message = "地址不能为空")
     public String getUrl() {
         return url;
     }
@@ -51,6 +60,7 @@ public class Link implements Serializable{
         this.url = url;
     }
 
+    @NotNull(message = "类别不能为空")
     @ManyToOne(cascade = CascadeType.PERSIST)
     public Category getCategory() {
         return category;

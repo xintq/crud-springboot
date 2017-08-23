@@ -25,7 +25,7 @@
                 </div>
                 <form th:action="@{/region/imp}" th:method="post">
                     <div class="form-group">
-                        <label class="control-label">格式（以TAB分割，多个PRODUCTS以"/"分割）：<br/>NAME	LOCALNAME	CODE	TELCODE	TIMEZONE</label>
+                        <label class="control-label">格式（以TAB分割）：<br/>NAME LOCALNAME CODE TELCODE TIMEZONE</label>
                         <textarea name="content" rows="10" class="form-control"
                                   placeholder="China	中国	CN	+86	+8"
                                   th:text="${content}"></textarea>

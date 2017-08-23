@@ -25,7 +25,7 @@
                 </div>
                 <form th:action="@{/link/imp}" th:method="post">
                     <div class="form-group">
-                        <label class="control-label">格式（以TAB分割，多个PRODUCTS以"/"分割）：<br/>NAME	URL	CATEGORY</label>
+                        <label class="control-label">格式（以TAB分割）：<br/>NAME URL CATEGORY</label>
                         <textarea name="content" rows="10" class="form-control"
                                   placeholder="Home	http://localhost:8080/crud	Internal Link"
                                   th:text="${content}"></textarea>

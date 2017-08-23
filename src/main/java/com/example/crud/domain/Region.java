@@ -1,6 +1,13 @@
+/*
+ * Copyright (c) K.X(Kevin Xin) 2017.
+ * Find more details in http://xintq.net
+ *
+ */
+
 package com.example.crud.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -35,6 +42,7 @@ public class Region implements Serializable{
         this.id = id;
     }
 
+    @NotNull(message = "区域代码不能为空")
     public String getCode() {
         return code;
     }
@@ -43,6 +51,7 @@ public class Region implements Serializable{
         this.code = code;
     }
 
+    @NotNull(message = "区域名称不能为空")
     public String getName() {
         return name;
     }

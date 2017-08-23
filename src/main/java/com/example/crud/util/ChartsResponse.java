@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) K.X(Kevin Xin) 2017.
+ * Find more details in http://xintq.net
+ *
+ */
+
 package com.example.crud.util;
 
 import java.util.List;
@@ -26,8 +32,9 @@ public class ChartsResponse {
 	public List<Dataset> getDatasets() {
 		return datasets;
 	}
+
 	public void setDatasets(List<Dataset> datasets) {
 		this.datasets = datasets;
 	}
-	
+
 }

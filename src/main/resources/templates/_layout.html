@@ -1,24 +1,30 @@
+<!--/* Copyright (c) K.X(Kevin Xin) 2017. Find more details in http://xintq.net */-->
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="htmlhead">
+
+<!--/* htmlhead 页面头部 */-->
+<head th:fragment="htmlhead"> <!--/* 定义Header部分为htmlhead，其他页面可以通过该名称引用 */-->
     <meta charset="utf-8"></meta>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
     <meta name="description" content=""></meta>
     <meta name="author" content=""></meta>
+    <!--/* 定义页面图标 */-->
     <link rel="shortcut icon" type="image/ico" th:href="@{/images/favicon.ico}"></link>
-
+    <!--/* 其他页面在引用时可以出入title的值来动态的改变页面标题 */-->
     <title th:text="${title}">(title)</title>
-
+    <!--/* 使用bootstrap为前端CSS框架，通过webjar导入 */-->
     <link th:href="@{/webjars/bootstrap/3.3.7/dist/css/bootstrap.css}" rel="stylesheet"></link>
     <link th:href="@{/webjars/bootstrap/3.3.7/dist/css/bootstrap-theme.css}" rel="stylesheet"></link>
+    <!--/* 使用bootstrap提供的下拉框，通过webjar导入 */-->
     <link th:href="@{/webjars/bootstrap-select/1.12.4/dist/css/bootstrap-select.css}" rel="stylesheet"></link>
+    <!--/* 自定义的样式最后导入 */-->
     <link th:href="@{/css/crud.css}" rel="stylesheet"></link>
 </head>
 
 <body>
 
-<!-- Nav Bar -->
+<!--/* navbar 顶端导航部分 */-->
 <div th:fragment="navbar" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
@@ -46,7 +52,7 @@
     </div>
 </div>
 
-<!-- Side Bar -->
+<!--/* sidebar 侧边栏 */-->
 <div th:fragment='sidebar' class="col-sm-3 col-md-2 sidebar">
     <ul class="nav nav-sidebar">
         <li id="sidebar-home"><a href="#" th:href="@{/}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;&nbsp;Home</a></li>
@@ -56,7 +62,7 @@
     </ul>
 </div>
 
-<!-- Pagination Bar -->
+<!--/* paginationbar 分页组件 */-->
 <div th:fragment='paginationbar'>
     <div style="text-align: center">
         <ul class='pagination pagination-sm'>
@@ -84,11 +90,14 @@
     </div>
 </div>
 
-<!-- Footer -->
+<!--/* footer 页脚 */-->
 <div th:fragment="footer" id="footer">
+    <!--/* 使用jQuery作为前台JS框架 */-->
     <script th:src="@{/webjars/jquery/3.2.1/dist/jquery.min.js}"></script>
+    <!--/* 为Bootstrap和Bootstrap下拉框引入对应的JS文件 */-->
     <script th:src="@{/webjars/bootstrap/3.3.7/dist/js/bootstrap.min.js}"></script>
     <script th:src="@{/webjars/bootstrap-select/1.12.4/dist/js/bootstrap-select.min.js}"></script>
+    <!--/* 最后引入自定义的JS文件 */-->
     <script th:src="@{/js/crud.js}"></script>
 </div>
 
