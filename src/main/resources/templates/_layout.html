@@ -9,17 +9,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
     <meta name="description" content=""></meta>
     <meta name="author" content=""></meta>
-    <!--/* 定义页面图标 */-->
-    <link rel="shortcut icon" type="image/ico" th:href="@{/images/favicon.ico}"></link>
-    <!--/* 其他页面在引用时可以出入title的值来动态的改变页面标题 */-->
-    <title th:text="${title}">(title)</title>
-    <!--/* 使用bootstrap为前端CSS框架，通过webjar导入 */-->
+    <link rel="shortcut icon" type="image/ico" th:href="@{/images/favicon.ico}"></link><!--/* 定义页面图标 */-->
+    <title th:text="${title}">(title)</title><!--/* 其他页面在引用时可以出入title的值来动态的改变页面标题 */-->
     <link th:href="@{/webjars/bootstrap/3.3.7/dist/css/bootstrap.css}" rel="stylesheet"></link>
+    <!--/* 使用bootstrap为前端CSS框架，通过webjar导入 */-->
     <link th:href="@{/webjars/bootstrap/3.3.7/dist/css/bootstrap-theme.css}" rel="stylesheet"></link>
-    <!--/* 使用bootstrap提供的下拉框，通过webjar导入 */-->
+    <!--/* 使用bootstrap为前端CSS框架，通过webjar导入 */-->
     <link th:href="@{/webjars/bootstrap-select/1.12.4/dist/css/bootstrap-select.css}" rel="stylesheet"></link>
-    <!--/* 自定义的样式最后导入 */-->
-    <link th:href="@{/css/crud.css}" rel="stylesheet"></link>
+    <!--/* 使用bootstrap提供的下拉框，通过webjar导入 */-->
+    <link th:href="@{/css/crud.css}" rel="stylesheet"></link><!--/* 自定义的样式最后导入 */-->
 </head>
 
 <body>
@@ -92,13 +90,12 @@
 
 <!--/* footer 页脚 */-->
 <div th:fragment="footer" id="footer">
-    <!--/* 使用jQuery作为前台JS框架 */-->
-    <script th:src="@{/webjars/jquery/3.2.1/dist/jquery.min.js}"></script>
-    <!--/* 为Bootstrap和Bootstrap下拉框引入对应的JS文件 */-->
+    <script th:src="@{/webjars/jquery/3.2.1/dist/jquery.min.js}"></script><!--/* 使用jQuery作为前台JS框架 */-->
     <script th:src="@{/webjars/bootstrap/3.3.7/dist/js/bootstrap.min.js}"></script>
+    <!--/* 为Bootstrap和Bootstrap下拉框引入对应的JS文件 */-->
     <script th:src="@{/webjars/bootstrap-select/1.12.4/dist/js/bootstrap-select.min.js}"></script>
-    <!--/* 最后引入自定义的JS文件 */-->
-    <script th:src="@{/js/crud.js}"></script>
+    <!--/* 为Bootstrap和Bootstrap下拉框引入对应的JS文件 */-->
+    <script th:src="@{/js/crud.js}"></script> <!--/* 最后引入自定义的JS文件 */-->
 </div>
 
 </body>
